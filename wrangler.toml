@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 
 # Build command to generate OpenNext files
 [build]
-command = "npm run build"
+command = "npx opennextjs-cloudflare build"
 cwd = "./"
 
 # Static assets
