@@ -79,37 +79,46 @@ export default function SingleArticlePage(props: InferGetStaticPropsType<typeof 
 }
 
 export async function getStaticPaths() {
-  const postsListData = await staticRequest({
-    query: `
-      query PostsSlugs{
-        getPostsList{
-          edges{
-            node{
-              sys{
-                basename
+  try {
+    const postsListData = await staticRequest({
+      query: `
+        query PostsSlugs{
+          getPostsList{
+            edges{
+              node{
+                sys{
+                  basename
+                }
               }
             }
           }
         }
-      }
-    `,
-    variables: {},
-  });
+      `,
+      variables: {},
+    });
 
-  if (!postsListData) {
+    if (!postsListData) {
+      return {
+        paths: [],
+        fallback: 'blocking',
+      };
+    }
+
+    type NullAwarePostsList = { getPostsList: NonNullableChildrenDeep<Query['getPostsList']> };
+    return {
+      paths: (postsListData as NullAwarePostsList).getPostsList.edges.map((edge) => ({
+        params: { slug: normalizePostName(edge.node.sys.basename) },
+      })),
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    // During build time when TinaCMS server is not running, return empty paths
+    // Pages will be generated on-demand when first requested
     return {
       paths: [],
-      fallback: false,
+      fallback: 'blocking',
     };
   }
-
-  type NullAwarePostsList = { getPostsList: NonNullableChildrenDeep<Query['getPostsList']> };
-  return {
-    paths: (postsListData as NullAwarePostsList).getPostsList.edges.map((edge) => ({
-      params: { slug: normalizePostName(edge.node.sys.basename) },
-    })),
-    fallback: false,
-  };
 }
 
 function normalizePostName(postName: string) {
