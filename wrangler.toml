@@ -1,0 +1,15 @@
+name = "Easy Peasy Marketing"
+compatibility_date = "2024-09-23"
+main = ".open-next/worker.js"
+
+# Enable Node.js compatibility for Next.js
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# Production environment
+[env.production]
+name = "easypeasymarketing-prod"
