@@ -1,0 +1,47 @@
+name = "logoipsum"
+main = ".wrangler/tmp/bundle-[HASH].mjs"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# API routes handler
+routes = [
+  { pattern = "/api/*", zone_name = "example.com" }
+]
+
+# KV Namespaces (if needed in the future)
+# [[kv_namespaces]]
+# binding = "KV_NAMESPACE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+# D1 Database (if needed in the future)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "logoipsum-db"
+# database_id = "your-database-id"
+
+# R2 Buckets (if needed in the future)
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "logoipsum-bucket"
+
+# Durable Objects (if needed in the future)
+# [[durable_objects.bindings]]
+# name = "DO_NAME"
+# class_name = "DurableObjectClassName"
+
+[env.production]
+route = "example.com/*"
+zone_id = "your-zone-id"
+
+[env.staging]
+route = "staging.example.com/*"
+zone_id = "your-zone-id"
+
+[build]
+command = "npm run build"
+cwd = "./"
+watch_paths = ["src/**/*.ts"]
+
+[triggers]
+crons = ["0 */6 * * *"]

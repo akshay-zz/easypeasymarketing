@@ -16,6 +16,8 @@ module.exports = withBundleAnalyzer({
   compiler: {
     styledComponents: true,
   },
+  // Cloudflare Pages support
+  output: process.env.CF_PAGES ? 'standalone' : undefined,
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push({
       test: /\.svg$/,
