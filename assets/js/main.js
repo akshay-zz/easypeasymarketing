@@ -1,6 +1,6 @@
 /**
-* Template Name: FlexStart
-* Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+* Template Name: Easy Peasy Marketing
+* Template URL: https://bootstrapmade.com/Easy Peasy Marketing-bootstrap-startup-template/
 * Updated: Nov 01 2024 with Bootstrap v5.3.3
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
